@@ -1,8 +1,8 @@
 # access_control
 CSDS 444 Course Project
 
-Project Topic: Access control system:
-  Build at least three access control models introduced in the class
+Project Topic: Access control system:\n
+  Build at least three access control models introduced in the class \n
     Access control matrix/list
     BLP model
     Biba
