@@ -1,9 +1,7 @@
-package src;
-
-import src.ui.*;
-import src.utils.BibaModel;
-import src.utils.FileOperation;
-import src.utils.User;
+import ui.*;
+import utils.BibaModel;
+import utils.FileOperation;
+import utils.User;
 
 import java.io.File;
 import java.util.ArrayList;

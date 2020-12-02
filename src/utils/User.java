@@ -1,4 +1,4 @@
-package src.utils;
+package utils;
 
 /**
  * @date 2020/11/9

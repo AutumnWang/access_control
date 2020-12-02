@@ -1,8 +1,8 @@
-package src.ui;
+package ui;
 
-import src.utils.BLPModel;
-import src.utils.BibaModel;
-import src.utils.FileOperation;
+import utils.BLPModel;
+import utils.BibaModel;
+import utils.FileOperation;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
