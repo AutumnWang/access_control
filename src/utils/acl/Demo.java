@@ -1,4 +1,4 @@
-package acl;
+package utils.acl;
 
 /* Note: This sample program is meant just as an example
  * of the types of things that can be done with an
