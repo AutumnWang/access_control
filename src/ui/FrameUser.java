@@ -122,7 +122,7 @@ public class FrameUser extends JFrame {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        File file = new File("src/test/" + jtf3.getText() + ".txt");
+                        File file = new File("src/test/resources/" + jtf3.getText() + ".txt");
                         if (jtf3.getText().trim().length() == 0){
                             JOptionPane.showMessageDialog(null, "file name cannot be empty");
                         }
@@ -155,7 +155,7 @@ public class FrameUser extends JFrame {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        JFileChooser jfc = new JFileChooser(new File("src/test"));  //set default directory
+                        JFileChooser jfc = new JFileChooser(new File("src/test/resources"));  //set default directory
                         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
                         jfc.setDialogTitle("select");
                         int result = jfc.showOpenDialog(null);
@@ -174,7 +174,7 @@ public class FrameUser extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         String username = jtf1.getText();
                         File file1 = new File(jtf4.getText());
-                        File file2 = new File("src/test/user.txt");
+                        File file2 = new File("src/test/resources/user.txt");
                         jta1.setText("");
                         switch(jcb.getSelectedIndex()){
                             case 1:     //biba model
@@ -207,7 +207,7 @@ public class FrameUser extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         String username = jtf1.getText();
                         File file1 = new File(jtf4.getText());
-                        File file2 = new File("src/test/user.txt");
+                        File file2 = new File("src/test/resources/user.txt");
                         switch(jcb.getSelectedIndex()){
                             case 1:     //biba model
                                 BibaModel bibaModel = new BibaModel();
