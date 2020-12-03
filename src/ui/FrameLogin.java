@@ -51,7 +51,7 @@ public class FrameLogin extends JFrame{
     }
 
     private void listener(){
-        File file = new File("src/test/user.txt");
+        File file = new File("src/test/resources/user.txt");
         btn1.addActionListener(
                 new ActionListener() {
                     @Override
