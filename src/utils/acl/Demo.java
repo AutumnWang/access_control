@@ -9,7 +9,7 @@ package utils.acl;
  */
 
 import java.security.Principal;
-import java.security.acl.*;;
+import java.security.acl.*;
 import java.util.Enumeration;
 
 public class Demo {
