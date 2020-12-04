@@ -1,8 +1,6 @@
 package ui;
 
-import utils.FileOperation;
-import utils.User;
-import utils.UserDaoImplement;
+import utils.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -52,6 +50,7 @@ public class FrameLogin extends JFrame{
 
     private void listener(){
         File file = new File("src/test/resources/user.txt");
+        File fileAcl = new File("src/test/resources/user_acl.txt");
         btn1.addActionListener(
                 new ActionListener() {
                     @Override
@@ -60,15 +59,26 @@ public class FrameLogin extends JFrame{
                         ArrayList<User> userArrayList = new ArrayList<User>();
                         FileOperation fileOperation = new FileOperation(file);
 
+                        UserDaoImplementAcl udiAcl = new UserDaoImplementAcl();
+                        ArrayList<UserAcl> userArrayListAcl = new ArrayList<UserAcl>();
+                        FileOperationAcl fileOperationAcl = new FileOperationAcl(fileAcl);
+
                         String username = jtf.getText();
                         String pwd = String.valueOf(jpf.getPassword());
                         int level = 0;
+                        int group = 0;
+                        int permission = 0;
 
                         userArrayList = fileOperation.read();
+                        userArrayListAcl = fileOperationAcl.read();
                         boolean flag = udi.isValid(userArrayList, username, pwd);
+                        boolean flagAcl = udiAcl.isValid(userArrayListAcl, username, pwd);
 
                         if (username.equals("admin") && pwd.equals("123456")){
                             new FrameAdmin();
+                        }
+                        else if (username.equals("acl") && pwd.equals("123456")) {
+                            new FrameAdminAcl();
                         }
                         else if (flag){
                             for (User tmp : userArrayList){
@@ -80,6 +90,19 @@ public class FrameLogin extends JFrame{
                             FrameUser frameUser = new FrameUser();
                             frameUser.setUsername(jtf.getText());
                             frameUser.setLevel(level);
+                        }
+                        else if (flagAcl){
+                            for (UserAcl tmp : userArrayListAcl){
+                                if (tmp.getUserName().equals(username)){
+                                    group = tmp.getGroup();
+                                    permission = tmp.getPermission();
+                                    break;
+                                }
+                            }
+                            FrameUserAcl frameUserAcl = new FrameUserAcl();
+                            frameUserAcl.setUsername(jtf.getText());
+                            frameUserAcl.setGroup(group);
+                            frameUserAcl.setPrincipal(jtf.getText());
                         }
                         else{
                             JOptionPane.showMessageDialog(null,"your username or password is invalid");
