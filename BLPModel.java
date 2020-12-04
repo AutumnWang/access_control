@@ -5,18 +5,17 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * @date 2020/11/28
- * Chinese Wall: Read, write only to company (level) assigned. Each subject and object has company
- * assigned.
+ * Bell LaPuda: No read up, no write down. Each subject and object have levels
+ * assigned, and higher levels dominate lower ones.
  */
 
-public class CWModel {
+public class BLPModel {
 
     private String content;
     private String subjectName;
     private String objectName;
-    private int subjectCompany;
-    private int objectCompany;
+    private int subjectClearance;
+    private int objectClearance;
 
     // Getter methods
 
@@ -32,17 +31,17 @@ public class CWModel {
         return objectName;
     }
 
-    public int getSubjectCompany() {
-        return subjectCompany;
+    public int getSubjectClearance() {
+        return subjectClearance;
     }
 
-    public int getObjectCompany() {
-        return objectCompany;
+    public int getObjectClearance() {
+        return objectClearance;
     }
 
     /**
-     * Compares the user's company with the file they are accessing, and
-     * returns a boolean determining whether they can proceed with the action (if they match).
+     * Compares the user's clearance level with the file they are accessing, and
+     * returns a boolean determining whether they can proceed with the action.
      * 
      * @param reader the user requesting read access
      * @param file   the file being read
@@ -59,38 +58,37 @@ public class CWModel {
         Map<String, String> result;
         result = op1.readUserFile();
         userArrayList = op2.read();
-        int readerCompany = 0;
-        int fileCompany = 0;
+        int readerLevel = 0;
+        int fileLevel = 0;
 
         for (User tmp : userArrayList) {
             if (reader.equals(tmp.getUserName())) {
-                readerCompany = tmp.getLevel();
+                readerLevel = tmp.getLevel();
                 this.subjectName = reader;
-                this.subjectCompany = readerCompany;
+                this.subjectClearance = readerLevel;
                 break;
             }
         }
 
         for (User tmp : userArrayList) {
             if (result.get("username").equals(tmp.getUserName())) {
-                fileCompany = tmp.getLevel();
+                fileLevel = tmp.getLevel();
                 this.objectName = tmp.getUserName();
-                this.objectCompany = fileCompany;
+                this.objectClearance = fileLevel;
                 break;
             }
         }
 
-        if (readerCompany == fileCompany) {
+        if (readerLevel >= fileLevel)
             flag = true;
-        }
-        
+
         this.content = result.get("content");
         return flag;
     }
 
     /**
-     * Compares the user's company with the file they are accessing, and
-     * returns a boolean determining whether they can proceed with the action (if they match).
+     * Compares the user's clearance level with the file they are accessing, and
+     * returns a boolean determining whether they can proceed with the action.
      * 
      * @param writer the user requesting write access
      * @param file   the file being written to
@@ -108,32 +106,32 @@ public class CWModel {
         Map<String, String> result;
         result = op1.readUserFile();
         userArrayList = op2.read();
-        int writerCompany = 0;
-        int fileCompany = 0;
+        int writerLevel = 0;
+        int fileLevel = 0;
 
         for (User tmp : userArrayList) {
             if (writer.equals(tmp.getUserName())) {
-                writerCompany = tmp.getLevel();
+                writerLevel = tmp.getLevel();
                 this.subjectName = writer;
-                this.subjectCompany = writerCompany;
+                this.subjectClearance = writerLevel;
                 break;
             }
         }
 
         for (User tmp : userArrayList) {
             if (result.get("username").equals(tmp.getUserName())) {
-                fileCompany = tmp.getLevel();
+                fileLevel = tmp.getLevel();
                 this.objectName = tmp.getUserName();
-                this.objectCompany = fileCompany;
+                this.objectClearance = fileLevel;
                 break;
             }
         }
 
-        if (writerCompany == fileCompany) {
+        if (writerLevel <= fileLevel) {
             flag = true;
             this.content = str + System.lineSeparator();
             op1.write(this.content);
-    	}
+        }
         return flag;
     }
 }
