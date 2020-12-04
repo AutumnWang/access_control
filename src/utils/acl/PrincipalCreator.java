@@ -14,6 +14,10 @@ public class PrincipalCreator implements Principal {
         this.user = user;
     }
 
+    public PrincipalCreator() {
+
+    }
+
 
     /**
      * This function returns true if the object passed matches
@@ -53,6 +57,10 @@ public class PrincipalCreator implements Principal {
      */
     public String getName() {
         return user;
+    }
+
+    public void setName(String user) {
+        this.user = user;
     }
 
 }
