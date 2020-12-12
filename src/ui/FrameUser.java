@@ -2,6 +2,7 @@ package ui;
 
 import utils.BLPModel;
 import utils.BibaModel;
+import utils.CWModel;
 import utils.FileOperation;
 
 import javax.swing.*;
@@ -34,7 +35,7 @@ public class FrameUser extends JFrame {
     private JButton btn5 = new JButton("reset");
 
     private JLabel jl3 = new JLabel("select a model");
-    private String[] arr = { "select", "Biba", "Bell-LaPuda" };
+    private String[] arr = { "select", "Biba", "Bell-LaPuda", "Chinese Wall" };
     private JComboBox jcb = new JComboBox(arr);
 
     public FrameUser() {
@@ -210,6 +211,25 @@ private void listener() {
                         }
                         break;
 
+                    //Chinese Wall Model
+                    case 3:
+                        CWModel cwModel = new CWModel();
+
+                        if (cwModel.isReadAllowed(username, file1, file2)) {
+                            jta1.append("The user(name: " + cwModel.getSubjectName() + ", level: "
+                                    + cwModel.getSubjectCompany() + ") wants to read the file "
+                                    + System.lineSeparator() + file1.getName() + "(created by user: "
+                                    + cwModel.getObjectName() + ", level: " + cwModel.getObjectCompany()
+                                    + ")" + System.lineSeparator());
+                            jta1.append("Success!" + System.lineSeparator());
+                            jta1.append("Content: " + System.lineSeparator() + cwModel.getContent());
+                        }
+
+                        else {
+                            JOptionPane.showMessageDialog(null,
+                                    "You do not belong to the same company (level) as this file!");
+                        }
+
                     default:
                         JOptionPane.showMessageDialog(null, "you must select a model!");
                         break;
@@ -264,6 +284,30 @@ private void listener() {
                             } else {
                                 JOptionPane.showMessageDialog(null,
                                         "your level is too high, you cannot write to the file (no write down!)");
+                            }
+                        }
+                        break;
+
+                    // Chinese Wall Model
+                    case 3:
+                        CWModel cwModel = new CWModel();
+
+                        if (jta2.getText().trim().length() == 0) {
+                            JOptionPane.showMessageDialog(null, "Please input something!");
+                        }
+
+                        else {
+                            if (cwModel.isWriteAllowed(username, file1, file2, jta2.getText())) {
+                                jta2.setText("");
+                                jta2.append("The user(name: " + cwModel.getSubjectName() + ", level: "
+                                        + cwModel.getSubjectCompany() + ") wants to write to the file "
+                                        + System.lineSeparator() + file1.getName() + "(created by user: "
+                                        + cwModel.getObjectName() + ", level: "
+                                        + cwModel.getObjectCompany() + ")" + System.lineSeparator());
+                                jta2.append("Success!" + System.lineSeparator());
+                            } else {
+                                JOptionPane.showMessageDialog(null,
+                                        "You do not belong to the same company (level) as this file!");
                             }
                         }
                         break;
